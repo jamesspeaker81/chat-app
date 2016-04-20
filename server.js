@@ -56,7 +56,7 @@ server.register(require('vision'), (err) => {
 
     server.views({
         engines: { html: require('handlebars') },
-        path: __dirname + '/public'
+        path: __dirname + '/'
     });
 
     server.route({ method: 'GET', path: '/', handler: handler });
