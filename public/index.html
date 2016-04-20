@@ -10,10 +10,11 @@
       form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
       #messages { list-style-type: none; margin: 0; padding: 0; }
       #messages li { padding: 5px 10px; }
-      #messages li:nth-child(odd) { background: #eee; }
+      #messages li:nth-child(odd) {}
     </style>
   </head>
   <body>
+    <h1 style="padding-bottom: 10px;">{{{Wenhui}}}</h1>
     <ul id="messages"></ul>
     <form action="">
       <input id="m" autocomplete="off" /><button>Send</button>
@@ -23,14 +24,21 @@
   <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
   <script>
     var socket = io();
+    var content;
     $('form').submit(function(){
-      socket.emit('chat message', $('#m').val());
+      content = [$('#currentUser').text() + " : " + $('#m').val(), $('#currentUser').text()]
+      socket.emit('chat message', content);
       $('#m').val('');
       return false;
     });
-    socket.on('message event', function(message){
-      $('#messages').append($('<li>').text(message))
+    socket.on('message event', function(content){
+      if (content[1] === "Wenhui"){
+        $('#messages').append($('<li style="background: pink">').text(content[0]));
+      } else {
+        $('#messages').append($('<li style="background: lightblue">').text(content[0]));
+      }
     });
   </script>
+  <h1 style="display: none"id="currentUser">{{{currentUser}}}</h1>
   </body>
 </html>

@@ -7,7 +7,6 @@ var listener = server.listener;
 
 var io = require('socket.io')(listener);
 
-
 server.route({
   method: 'GET',
   path: '/',
@@ -30,8 +29,8 @@ server.start((err) => {
 
 io.on('connection', function(socket){
   console.log('a user connected');
-  socket.on('chat message', function(message){
-    io.emit('message event', message);
+  socket.on('chat message', function(message, user){
+    io.emit('message event', message, user);
   });
   socket.on('disconnect', function(){
     console.log('a user disconnected');
