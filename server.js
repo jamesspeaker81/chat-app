@@ -14,9 +14,8 @@ var server = new Hapi.Server();
 server.connection({port: 3000});
 
 const handler = function (request, reply) {
-  debugger;
 
-  reply.view('login.html', {
+  reply.view('index.html', {
   });
 };
 
@@ -34,12 +33,12 @@ const indexHandler = function (request, reply) {
     if (currentUser === "Wenhui") {
       Wenhui = "Wenhui is chatting with Mr. Capable!";
     }
-    reply.view('index.html', {
+    reply.view('chat.html', {
       currentUser: currentUser,
       Wenhui: Wenhui
     });
   } else {
-    reply.view('login.html', {
+    reply.view('index.html', {
       error: "That is not a user! Please try again."
     });
   }
